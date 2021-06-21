@@ -68,3 +68,28 @@ model.add(keras.layers.Dense(500, activation='relu', input_shape=[length,]))
 model.add(keras.layers.Dense(2, activation='softmax'))
 
 print(len(train_data))
+
+########## THIRD ISSUE: Compile and Evaluate Model ###############
+model.compile(optimizer='sgd', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+model.fit(train_data, train_labels, epochs=400)
+
+loss_value, accuracy_value = model.evaluate(test_data, test_labels)
+print(f'Our test accuracy was {accuracy_value})')
+
+def predictor(test_data, test_labels, index):
+    prediction = model.predict(test_data)
+    if np.argmax(prediction[index]) == test_labels[index]:
+        print(f'This was correctly predicted to be a \"{test_labels[index]}\"!')
+    else:
+        print(f'This was incorrectly predicted to be a \"{np.argmax(prediction[index])}\". It was actually a \"{test_labels[index]}\".')
+        return(prediction)
+
+predictor(test_data, test_labels, 149)
+
+
+
+
+
+
+
+
